@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import socket
 
 
 class UltrasonicClient:
@@ -10,8 +11,12 @@ class UltrasonicClient:
         self.TRIG = 16
         self.ECHO = 18
 
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect(('192.168.0.13', 8002))
+
         GPIO.setup(self.TRIG, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
+        GPIO.output(self.TRIG, False)
 
     def getDistance(self):
         GPIO.output(self.TRIG, False)
@@ -37,8 +42,14 @@ class UltrasonicClient:
 
 if __name__ == "__main__":
     try:
+        #Create object u, while True, call the distance function, print it,
+        # and send the data through the socket. Sleep for half a second.
         u = UltrasonicClient()
         while True:
-            u.getDistance()
+            dist = u.getDistance()
+            print("Distance is %.1f cm" %dist)
+            u.sock.send(str(dist))
+            time.sleep(0.5)
     except KeyboardInterrupt:
+        u.sock.close()
         u.cleanup()

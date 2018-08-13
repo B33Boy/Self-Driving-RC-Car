@@ -1,4 +1,4 @@
-// 
+
 int right_pin = 5;
 int left_pin = 7;
 int forward_pin = 11;
@@ -28,17 +28,6 @@ void loop() {
    send_command(command,time);
 }
 
-void right(int time){
-  Serial.println("right");
-  digitalWrite(right_pin, LOW);
-  delay(time);
-}
-
-void left(int time){
-  Serial.println("left");
-  digitalWrite(left_pin, LOW);
-  delay(time);
-}
 
 void forward(int time){
   Serial.println("forward");
@@ -60,7 +49,7 @@ void forward_right(int time){
 }
 
 void reverse_right(int time){
-  Serial.println("reveres right");
+  Serial.println("reverse right");
   digitalWrite(reverse_pin, LOW);
   digitalWrite(right_pin, LOW);
   delay(time);
@@ -81,6 +70,7 @@ void reverse_left(int time){
 }
 
 void reset(){
+  //Setting all pins to high makes sure the car doesn't move
   digitalWrite(right_pin, HIGH);
   digitalWrite(left_pin, HIGH);
   digitalWrite(forward_pin, HIGH);
@@ -90,22 +80,15 @@ void reset(){
 void send_command(char command, int time){
   switch (command){
 
-     //reset command
      case 0: reset(); break;
-
-     // single command
      case 1: forward(time); break;
      case 2: reverse(time); break;
-     case 3: right(time); break;
-     case 4: left(time); break;
+     case 3: forward_right(time); break;
+     case 4: forward_left(time); break;
+     case 5: reverse_right(time); break;
+     case 6: reverse_left(time); break;
 
-     //combination command
-     case 6: forward_right(time); break;
-     case 7: forward_left(time); break;
-     case 8: reverse_right(time); break;
-     case 9: reverse_left(time); break;
-
-     default: Serial.print("Inalid Command\n");
+     default: Serial.print("Invalid Command\n");
     }
 }
 
