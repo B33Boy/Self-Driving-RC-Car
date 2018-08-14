@@ -11,19 +11,19 @@ class UltrasonicClient:
         self.TRIG = 16
         self.ECHO = 18
 
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect(('192.168.0.13', 8002))
-
         GPIO.setup(self.TRIG, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
         GPIO.output(self.TRIG, False)
 
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.sock.connect(('192.168.0.13', 50001))
+
     def getDistance(self):
-        GPIO.output(self.TRIG, False)
-        time.sleep(2)
+
         GPIO.output(self.TRIG, True)
         time.sleep(0.00001)
         GPIO.output(self.TRIG, False)
+        pulse_start = time.time()
 
         while GPIO.input(self.ECHO) == 0:
             pulse_start = time.time()
@@ -31,7 +31,7 @@ class UltrasonicClient:
             pulse_end = time.time()
 
         pulse_duration = pulse_end - pulse_start
-        distance = round(pulse_duration * 17150, 2)
+        distance = pulse_duration * 17150
 
         return distance
 
@@ -47,9 +47,9 @@ if __name__ == "__main__":
         u = UltrasonicClient()
         while True:
             dist = u.getDistance()
-            print("Distance is %.1f cm" %dist)
+            print("Distance is %.1f cm" % dist)
             u.sock.send(str(dist))
-            time.sleep(0.5)
+            time.sleep(0.3)
     except KeyboardInterrupt:
         u.sock.close()
         u.cleanup()
