@@ -3,7 +3,7 @@ import pygame
 from pygame.locals import *
 
 
-class TeleopTest():
+class TeleopTest(object):
 
     def __init__(self):
         #initialize pygame and create small window where our keypresses will be detected

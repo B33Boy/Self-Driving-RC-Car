@@ -1,28 +1,33 @@
 import SocketServer
 import threading
+import numpy as np
+import cv2
+import sys
+
 
 ultrasonic_data = None
 
-#Subclass BaseRequestHandler and override the handle method
+# BaseRequestHandler is used to process incoming requests
 class UltrasonicHandler(SocketServer.BaseRequestHandler):
 
     data = " "
 
     def handle(self):
-        global ultrasonic_data
 
         while self.data:
             self.data = self.request.recv(1024)
             ultrasonic_data = float(self.data.split('.')[0])
             print(ultrasonic_data)
 
+
+# VideoStreamHandler uses streams which are file-like objects for communication
 class VideoStreamHandler(SocketServer.StreamRequestHandler):
 
     def handle(self):
         pass
 
 
-class Self_Driver_Server:
+class SelfDriverServer(object):
 
     def __init__(self, host, portUS, portCam):
         self.host = host
@@ -48,9 +53,9 @@ class Self_Driver_Server:
 
 if __name__ == "__main__":
 
-    #From SocketServer documentation
-    HOST, PORTUS, PORTCAM = '192.168.0.13', 50001, 50002
-    sdc = Self_Driver_Server(HOST, PORTUS, PORTCAM)
+    # From SocketServer documentation
+    HOST, PORTUS, PORTCAM = '192.168.0.18', 50001, 50002
+    sdc = SelfDriverServer(HOST, PORTUS, PORTCAM)
 
     sdc.start()
 
