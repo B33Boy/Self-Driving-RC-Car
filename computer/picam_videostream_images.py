@@ -8,11 +8,9 @@ class VideostreamImages(object):
 
     def __init__(self, host, port):
 
-        #Create a socket and bind to address
         self.sock = socket.socket()
         self.sock.bind((host, port))
 
-        #
         self.sock.listen(0)
         self.conn, self.addr = self.sock.accept()
         self.conn = self.conn.makefile('rb')
