@@ -29,6 +29,9 @@ class VideoStreamingTest(object):
             # need bytes here
             stream_bytes = b' '
 
+            lower_blue = np.array([67, 99, 70])
+            upper_blue = np.array([135, 215, 255])
+
             while True:
                 stream_bytes += self.connection.read(1024)
                 first = stream_bytes.find(b'\xff\xd8')
@@ -48,5 +51,5 @@ class VideoStreamingTest(object):
 
 if __name__ == '__main__':
     # host, port
-    h, p = "192.168.0.18", 50002
+    h, p = "192.168.0.15", 50002
     VideoStreamingTest(h, p)

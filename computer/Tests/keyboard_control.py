@@ -15,8 +15,7 @@ class TeleopTest(object):
         self.connected = True
         self.moveCar()
 
-
-    def moveCar(self):
+    def movecar(self):
         while self.connected:
 
             for event in pygame.event.get():
@@ -26,19 +25,19 @@ class TeleopTest(object):
                     # complex orders
                     if key_input[pygame.K_UP] and key_input[pygame.K_RIGHT]:
                         print("Forward Right")
-                        self.ser.write(chr(3).encode())
+                        self.ser.write(chr(5).encode())
 
                     elif key_input[pygame.K_UP] and key_input[pygame.K_LEFT]:
                         print("Forward Left")
-                        self.ser.write(chr(4).encode())
+                        self.ser.write(chr(6).encode())
 
                     elif key_input[pygame.K_DOWN] and key_input[pygame.K_RIGHT]:
                         print("Reverse Right")
-                        self.ser.write(chr(5).encode())
+                        self.ser.write(chr(7).encode())
 
                     elif key_input[pygame.K_DOWN] and key_input[pygame.K_LEFT]:
                         print("Reverse Left")
-                        self.ser.write(chr(6).encode())
+                        self.ser.write(chr(8).encode())
 
                     # simple orders
                     elif key_input[pygame.K_UP]:
@@ -48,6 +47,14 @@ class TeleopTest(object):
                     elif key_input[pygame.K_DOWN]:
                         print("Reverse")
                         self.ser.write(chr(2).encode())
+
+                    elif key_input[pygame.K_RIGHT]:
+                        print("Right")
+                        self.ser.write(chr(3).encode())
+
+                    elif key_input[pygame.K_LEFT]:
+                        print("Left")
+                        self.ser.write(chr(4).encode())
 
                     # exit
                     elif key_input[pygame.K_x] or key_input[pygame.K_q]:

@@ -28,16 +28,15 @@ class CollectTrainingData(object):
         self.image_size = image_size
 
         # create labels
-        #   ([[1  0  0]     this means move left
+        #   ([[1  0  0]     this means move forward left
         #     [0  1  0]     this means move forward
-        #     [0  0  1]])   this means move right
+        #     [0  0  1]])   this means move forward right
         self.k = np.zeros((3, 3), 'float')
         for i in range(3):
             self.k[i, i] = 1
 
         pygame.init()
         pygame.display.set_mode((300, 300))
-
 
     def collect(self):
 
@@ -48,9 +47,14 @@ class CollectTrainingData(object):
         clicks_forward_left = 0
         clicks_forward_right = 0
 
+        # start measuring time
         start = cv2.getTickCount()
-        X = np.empty((0, self.image_size))
-        y = np.empty((0, 3))
+
+        # Our inputs and expected outputs
+        # the x is the unrolled image, and the y is the keypress
+        X = np.empty((1, self.image_size))
+        y = np.empty((1, 3))
+        #print(X, y)
 
         try:
 
@@ -85,47 +89,57 @@ class CollectTrainingData(object):
 
                             # complex orders
                             if key_input[pygame.K_UP] and key_input[pygame.K_RIGHT]:
-
                                 print("Forward Right")
                                 X = np.vstack((X, temp_array))
                                 y = np.vstack((y, self.k[2]))
                                 saved_frame += 1
                                 clicks_forward_right += 1
-                                self.ser.write(chr(3).encode())
+                                self.ser.write(chr(5).encode())
 
                             elif key_input[pygame.K_UP] and key_input[pygame.K_LEFT]:
-
                                 print("Forward Left")
                                 X = np.vstack((X, temp_array))
                                 y = np.vstack((y, self.k[0]))
                                 saved_frame += 1
                                 clicks_forward_left += 1
-                                self.ser.write(chr(4).encode())
+                                self.ser.write(chr(6).encode())
 
                             elif key_input[pygame.K_DOWN] and key_input[pygame.K_RIGHT]:
-
                                 print("Reverse Right")
-                                self.ser.write(chr(5).encode())
+                                self.ser.write(chr(7).encode())
 
                             elif key_input[pygame.K_DOWN] and key_input[pygame.K_LEFT]:
-
                                 print("Reverse Left")
-                                self.ser.write(chr(6).encode())
+                                self.ser.write(chr(8).encode())
 
                             # simple orders
                             elif key_input[pygame.K_UP]:
                                 print("Forward")
-
                                 X = np.vstack((X, temp_array))
                                 y = np.vstack((y, self.k[1]))
                                 saved_frame += 1
                                 clicks_forward += 1
-
                                 self.ser.write(chr(1).encode())
 
                             elif key_input[pygame.K_DOWN]:
                                 print("Reverse")
                                 self.ser.write(chr(2).encode())
+
+                            elif key_input[pygame.K_RIGHT]:
+                                print("Right")
+                                #X = np.vstack((X, temp_array))
+                                #y = np.vstack((y, self.k[4]))
+                                saved_frame += 1
+                                #clicks_forward += 1
+                                self.ser.write(chr(3).encode())
+
+                            elif key_input[pygame.K_LEFT]:
+                                print("Left")
+                                #X = np.vstack((X, temp_array))
+                                #y = np.vstack((y, self.k[0]))
+                                saved_frame += 1
+                                #clicks_forward += 1
+                                self.ser.write(chr(4).encode())
 
                             # exit
                             elif key_input[pygame.K_x] or key_input[pygame.K_q]:
@@ -133,7 +147,6 @@ class CollectTrainingData(object):
                                 self.send_frames = False
                                 self.ser.write(chr(0).encode())
                                 self.ser.close()
-
                                 break
 
                         elif event.type == pygame.KEYUP:
@@ -171,7 +184,7 @@ class CollectTrainingData(object):
 
 if __name__ == '__main__':
 
-    host, port, serial_port = "192.168.0.18", 50002, "/dev/ttyUSB0"
+    host, port, serial_port = "192.168.0.15", 50002, "/dev/ttyUSB0"
 
     #Size of one frame (cut in half because we only care for the lower half)
     image_size = 120*320
