@@ -14,17 +14,17 @@ X = np.zeros((1, 38400))
 y = np.zeros((1, 3), 'float')
 
 for input_file in input_data_path:
-
     with np.load(input_file) as data:
         X_temp = data['train']
-        y_temp = data['train_label']
+        y_temp = data['train_labels']
 
-    X = np.vstack((X, X_temp))
-    y = np.vstack((y, y_temp))
+    # Get rid of the first rows of each training_data file
+    X = np.vstack((X, X_temp[1:]))
+    y = np.vstack((y, y_temp[1:]))
 
-# Get rid of the first rows in both matrices that only contain zeros
-X = X[1:,:]
-y = y[1:,:]
+# # Get rid of the first rows in both matrices that only contain zeros
+# X = X[1:,:]
+# y = y[1:,:]
 
 # We use feature scaling to make gradient descent faster because we are dealing with smaller values
 # Divide by 255 to get values between 0 and 1
@@ -34,7 +34,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20)
 
 # define model
 model = Sequential()
-training_start =time.time()
+training_start = time.time()
 print("Training data...")
 model.add(Dense(30, input_dim=38400, init='uniform'))
 model.add(Dropout(0.2))
