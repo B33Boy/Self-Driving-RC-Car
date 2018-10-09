@@ -1,15 +1,6 @@
 # Self-Driving-RC-Car
 
-## Deep Learning Problem
-Problem Definition: The model will predict the correct keypress to move the car given a live video feed.
-Inputs: list of 120x320 images (unrolled), list of 1x3 one-hot-encoded labels that determine the direction to turn
-Type of problem: multiclass single-label classification where each input image should be categorized into one of the following:
-[1 0 0], [0 1 0], [0 0 1].
-
-Metric: accuracy
-Evaluation protocol: Validation Accuracy
-Because the problem is a multiclass single-label classification problem, our last layer activation function is softmax, and our loss function is binary cross-entropy
-
+This project is based on [Hamuchiwa's AutoRCCar]{https://github.com/hamuchiwa/AutoRCCar} project.
 
 ## Project Structure 
     arduino/
@@ -39,3 +30,13 @@ Because the problem is a multiclass single-label classification problem, our las
         ultrasonic_client.py            - Sends ultrasonic data over tcp
         video_client.py                 - Sends images from picam to server
         
+
+## Deep Learning Problem
+Problem Definition: The model will predict the correct keypress to move the car given a live video feed.
+Inputs: list of 120x320 images (unrolled), list of 1x3 one-hot-encoded labels that determine the direction to turn
+Type of problem: multiclass single-label classification where each input image should be categorized into one of the following:
+[1 0 0], [0 1 0], [0 0 1].
+
+Metric: accuracy
+Evaluation protocol: Validation Accuracy
+Because the problem is a multiclass single-label classification problem, our last layer activation function is softmax, and our loss function is binary cross-entropy
