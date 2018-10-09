@@ -38,5 +38,7 @@ Type of problem: multiclass single-label classification where each input image s
 [1 0 0], [0 1 0], [0 0 1].
 
 Metric: accuracy
+
 Evaluation protocol: Validation Accuracy
-Because the problem is a multiclass single-label classification problem, our last layer activation function is softmax, and our loss function is binary cross-entropy
+
+Because the problem is a multiclass single-label classification problem, our last layer activation function is softmax, and our  loss function is binary cross-entropy
