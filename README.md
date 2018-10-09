@@ -34,8 +34,8 @@ Because the problem is a multiclass single-label classification problem, our las
         picam_calibration.py 	        - Calibration script for the picamera
         self_driver.py                  - Script to drive the car by itself
         self_driver_helper.py           - Aids the self_driver.py file with useful classes
+      
+    raspberry_pi/
+        ultrasonic_client.py            - Sends ultrasonic data over tcp
+        video_client.py                 - Sends images from picam to server
         
-        
-  
-
-  
