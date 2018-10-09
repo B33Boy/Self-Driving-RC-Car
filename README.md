@@ -11,21 +11,20 @@ Evaluation protocol: Validation Accuracy
 Because the problem is a multiclass single-label classification problem, our last layer activation function is softmax, and our loss function is binary cross-entropy
 
 
-## Project Structure
-
-arduino/
-    rc_keyboard-control/ 
-        rc_keyboard_control.ino - Contains the file to flash onto the Arduino
+## Project Structure 
+    arduino/
+        rc_keyboard-control/ 
+            rc_keyboard_control.ino - Contains the file to flash onto the Arduino
     
-computer/
-    Tests/                  - Contains Tests
-        MirrorTest.ipynb    - Test for generating more data by mirroring images in x direction
-        ParseDataTest.ipynb - Test for parsing the data (used when training the model)
-        keyboard_control.py - Testing teleoperation via keyboard control 
-        stream_test.py      - Test the rpi's streaming capabilites
-    chess_board/            - Contains images for camera correction 
-    deepln_h5/              - Contains final trained neural network h5 files
-    training_data/          - Contains npz files containing traning data images, and one-hot encoded output labels
+    computer/
+        Tests/                  - Contains Tests
+            MirrorTest.ipynb    - Test for generating more data by mirroring images in x direction
+            ParseDataTest.ipynb - Test for parsing the data (used when training the model)
+            keyboard_control.py - Testing teleoperation via keyboard control 
+            stream_test.py      - Test the rpi's streaming capabilites
+        chess_board/            - Contains images for camera correction 
+        deepln_h5/              - Contains final trained neural network h5 files
+        training_data/          - Contains npz files containing traning data images, and one-hot encoded output labels
         
         
   
