@@ -8,7 +8,7 @@ This project is based on [Hamuchiwa's AutoRCCar](https://github.com/hamuchiwa/Au
             rc_keyboard_control.ino - Contains the file to flash onto the Arduino
     
     computer/
-        Tests/                          - Contains Tests
+        Tests/                          
             MirrorTest.ipynb            - Test for generating more data by mirroring images in x direction
             ParseDataTest.ipynb         - Test for parsing the data (used when training the model)
             keyboard_control.py         - Testing teleoperation via keyboard control 
