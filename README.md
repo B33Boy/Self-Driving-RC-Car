@@ -1,6 +1,6 @@
 # Self-Driving-RC-Car
 
-This project is based on [Hamuchiwa's AutoRCCar]{https://github.com/hamuchiwa/AutoRCCar} project.
+This project is based on [Hamuchiwa's AutoRCCar](https://github.com/hamuchiwa/AutoRCCar) project.
 
 ## Project Structure 
     arduino/
