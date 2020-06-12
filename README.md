@@ -1,6 +1,6 @@
 # Self-Driving-RC-Car
 
-This project is based on [Hamuchiwa's AutoRCCar](https://github.com/hamuchiwa/AutoRCCar) project.
+This project is based on [Hamuchiwa's AutoRCCar](https://github.com/hamuchiwa/AutoRCCar) project. I've implemented the algorithms in Keras as well as tests for data augmentation/generation.
 
 ## Project Structure 
     arduino/
